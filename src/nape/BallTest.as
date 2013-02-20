@@ -7,48 +7,31 @@
  */
 package nape
 {
-    import flash.display.Sprite;
-    import flash.events.Event;
-
     import nape.geom.Vec2;
     import nape.phys.Body;
     import nape.phys.BodyType;
     import nape.phys.Material;
     import nape.shape.Polygon;
-    import nape.space.Space;
-    import nape.util.BitmapDebug;
 
-    public class BallTest extends Sprite
+    [SWF(backgroundColor="0x333333")]
+    public class BallTest extends Template
     {
-        private var space:Space;
-
-        private var debug:BitmapDebug;
         public function BallTest()
         {
-            super();
-            debug = new BitmapDebug(stage.stageWidth,stage.stageHeight);
-            addChild(debug.display)
-            space = new Space(new Vec2(0,600));
-
-            var circle:Body = new Body();
-            circle.shapes.add(new Polygon(Polygon.box(100,100), new Material(Number.POSITIVE_INFINITY)));
-
-            var border:Body = new Body(BodyType.STATIC,new Vec2(0,200));
-            border.shapes.add(new Polygon(Polygon.rect(0,0,50,50)));
-            space.bodies.add(border);
-            space.bodies.add(circle)
-
-            space.worldAngularDrag = 0;
-            space.worldLinearDrag = 0;
-            addEventListener(Event.ENTER_FRAME, update)
+            super({gravity:Vec2.weak(0,10)});
         }
 
-        private function update(event:Event):void
+        override protected function init():void
         {
-            space.step(1/stage.frameRate);
-            debug.clear();
-            debug.draw(space);
-            debug.flush();
+            //!!
+            space.worldAngularDrag = 0;
+            space.worldLinearDrag = 0;
+
+            var circle:Body = new Body();
+            circle.shapes.add(new Polygon(Polygon.box(100, 100), new Material(Number.POSITIVE_INFINITY)));
+
+            space.bodies.add(circle);
+            createBorder();
         }
     }
 }

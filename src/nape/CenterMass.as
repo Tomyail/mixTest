@@ -39,22 +39,22 @@ package nape
 //            space.worldLinearDrag = 0;
             debug.drawBodies = true;
             debug.drawShapeDetail = true;
-            debug.drawBodyDetail = true;
+//            debug.drawBodyDetail = true;
 
-            var circle:Body = new Body(BodyType.KINEMATIC);
+            var circle:Body = new Body();
 //            circle.shapes.add(new Circle(20,Vec2.get(10,10)));
 //            circle.shapes.add(new Polygon(Polygon.box(100, 100), new Material()));
 //            var shape:Polygon = new Polygon(Polygon.box(100, 100), new Material());
-//            var shape:Polygon = new Polygon(Polygon.rect(0,0,100, 100), new Material());
+            var shape:Polygon = new Polygon(Polygon.rect(0,0,100, 100), new Material());
 //            var shape:Polygon = new Polygon(Polygon.regular(60,60,14), new Material());
-            var shape:Circle = new Circle(50);
+//            var shape:Circle = new Circle(10);
 
             circle.shapes.add(shape);
-            shape.localCOM.set(Vec2.weak(-30,30));
-            circle.velocity.setxy(10,0);
+//            shape.localCOM.set(Vec2.weak(50,0));
+//            circle.velocity.setxy(10,0);
 //            circle.force
 //            circle.align();
-            circle.position.y = 200;
+            circle.position.y = 0;
             circle.position.x = 100;
 //            trace(circle.localPointToWorld(Vec2.weak(-30,30)));
 

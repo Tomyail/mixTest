@@ -18,7 +18,7 @@ package nape
     {
         public function BallTest()
         {
-            super({gravity:Vec2.weak(0,10)});
+            super({gravity:Vec2.weak(0,600)});
         }
 
         override protected function init():void

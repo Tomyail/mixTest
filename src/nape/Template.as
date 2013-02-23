@@ -112,6 +112,8 @@ package nape {
             textField.width = 128;
             textField.height = 80;
             addChild(textField);
+            if(params.showInfo !=null && !params.showInfo)
+                textField.visible = false;
         }
 
         protected function random():Number {

@@ -45,8 +45,8 @@ package nape
             body = new Body(BodyType.KINEMATIC);
 //            body = new Body();
 //            shape = new Polygon(Polygon.box(100, 100));
-            shape = new Polygon(Polygon.rect(0,0,100, 100));
-//            shape = new Circle(50);
+//            shape = new Polygon(Polygon.rect(0,0,100, 100));
+            shape = new Circle(50);
 
             body.shapes.add(shape);
             body.position.y = 100;
@@ -60,7 +60,7 @@ package nape
             trace(body.position);
 //            shape.localCOM.x = 10;
 //            shape.localCOM.y = 10;
-//            shape.translate(Vec2.weak(10,10));
+            shape.translate(Vec2.weak(10,10));
         }
     }
 }

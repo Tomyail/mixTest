@@ -22,28 +22,48 @@ package nape
             });
         }
 
-        private var box:Body;
-
         override protected function init():void
         {
+//            testFilter();
+            testGroup();
+        }
+
+        private function testFilter():void
+        {
+            setup();
+
+            createBall(10,5,5,new Material(Number.POSITIVE_INFINITY));
+            var box:Body = createBox(100,10,BodyType.KINEMATIC,50,200);
+            new PushButton(this, 200,0,"swap:filter",clickCallback);
+
+            function clickCallback(e:MouseEvent):void
+            {
+                box.shapes.at(0).filter.collisionMask = ~box.shapes.at(0).filter.collisionMask;
+            }
+        }
+
+        private function testGroup():void
+        {
+            setup();
+
+            createBall(10,5,5,new Material(Number.POSITIVE_INFINITY));
+            var box:Body = createBox(100,10,BodyType.KINEMATIC,50,200);
+            new PushButton(this, 200,0,"swap:group",clickCallback);
+
+            function clickCallback(e:MouseEvent):void
+            {
+                box.shapes.at(0).filter.collisionMask = ~box.shapes.at(0).filter.collisionMask;
+            }
+        }
+
+        private function setup():void
+        {
+            //消除摩擦力
             space.worldAngularDrag = 0;
             space.worldLinearDrag = 0;
+            //创建边框
             createBorder();
-            var group:InteractionGroup = new InteractionGroup(false);
-            var ball:Body = createBall(10,5,5,new Material(Number.POSITIVE_INFINITY));
-            ball.group = group;
-            box = createBox(100,10,BodyType.KINEMATIC,50,200);
-            box.group = group;
-//            box.shapes.at(0).filter.collisionMask = 1;
-//            box.shapes.at(0).filter
-
-            trace((1<<5) )
-            var pushBtn:PushButton = new PushButton(this, 200,0,"test",callback)
         }
 
-        private function callback(e:MouseEvent):void
-        {
-            box.shapes.at(0).filter.collisionMask = ~box.shapes.at(0).filter.collisionMask;
-        }
     }
 }

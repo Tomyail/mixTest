@@ -9,12 +9,12 @@ package mix
 {
     import flash.display.Sprite;
 
-    public class RoomBalence extends Sprite
+    public class RoomBalance extends Sprite
     {
         private var roomList:Vector.<Array>;
         private const ROOM_LENGTH:int = 5;
         private const ROOM_MAX:int = 10;
-        public function RoomBalence()
+        public function RoomBalance()
         {
             roomList = new <Array>[];
             for(var i:uint = 0;i<ROOM_LENGTH;i++)

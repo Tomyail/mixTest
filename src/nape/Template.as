@@ -10,6 +10,10 @@ package nape {
     import flash.text.TextFormat;
     import flash.utils.getTimer;
 
+    import nape.phys.Material;
+
+    import nape.shape.Circle;
+
     import nape.space.Space;
     import nape.space.Broadphase;
     import nape.phys.Body;
@@ -129,6 +133,24 @@ package nape {
             border.space = space;
             border.debugDraw = false;
             return border;
+        }
+
+        protected function createBall(radius:Number,x:Number = 0,y:Number = 0,material:Material = null):Body
+        {
+            var ball:Body = new Body();
+            ball.shapes.add(new Circle(radius,null, material));
+            ball.position.setxy(x,y);
+            ball.space = space;
+            return ball;
+        }
+
+        protected function createBox(width:Number,height:Number,type:BodyType = null, x:Number = 0,y:Number = 0,material:Material = null):Body
+        {
+            var rect:Body = new Body(type)
+            rect.shapes.add(new Polygon(Polygon.box(width,height),material));
+            rect.position.setxy(x, y);
+            rect.space = space;
+            return rect;
         }
 
         // to be overriden

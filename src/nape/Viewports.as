@@ -34,7 +34,7 @@ package nape {
     // Template class is used so that this sample may
     // be as concise as possible in showing Nape features without
     // any of the boilerplate that makes up the sample interfaces.
-    import Template;
+//    import Template;
 
     import flash.display.DisplayObject;
 

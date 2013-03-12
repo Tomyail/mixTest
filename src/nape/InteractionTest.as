@@ -1,6 +1,8 @@
 package nape
 {
     import com.bit101.components.PushButton;
+    import com.greensock.easing.Back;
+    import com.greensock.plugins.CacheAsBitmapPlugin;
 
     import flash.events.MouseEvent;
 
@@ -11,10 +13,12 @@ package nape
     import nape.phys.BodyType;
     import nape.phys.Material;
 
+    [SWF(backgroundColor="0x333333")]
     public class InteractionTest extends Template
     {
         public function InteractionTest()
         {
+            stage.color = 0x333333;
             super({
                 gravity : Vec2.weak(0, 600),
                 showInfo: false
@@ -23,10 +27,11 @@ package nape
 
         override protected function init():void
         {
+
             setup();
-//            testSimpleFilter();
+            testSimpleFilter();
 //            testSimpleGroup();
-            testMultiFilter();
+//            testMultiFilter();
 //            testMultiGroup();
 //            trace(~3)
         }
@@ -38,7 +43,6 @@ package nape
             var boxA:Body = createBox(100, 10, BodyType.KINEMATIC, 50, 100);
             boxA.shapes.at(0).filter.collisionGroup = 2;//2^0;
             new PushButton(this, 200, 100, "swapA:filter", clickCallbackA);
-
             ball.shapes.at(0).filter.collisionMask = 1;
             function clickCallbackA(e:MouseEvent):void
             {
@@ -66,7 +70,6 @@ package nape
             createBall(10, 5, 5, new Material(Number.POSITIVE_INFINITY));
             var box:Body = createBox(100, 10, BodyType.KINEMATIC, 50, 100);
             new PushButton(this, 200, 100, "swap:filter", clickCallback);
-
             function clickCallback(e:MouseEvent):void
             {
                 box.shapes.at(0).filter.collisionMask = ~box.shapes.at(0).filter.collisionMask;

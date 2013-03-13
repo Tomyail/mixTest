@@ -8,12 +8,12 @@ package mix.dragList
     import flash.geom.Point;
     import flash.text.TextField;
 
-    public class DraggableListTest extends Sprite
+    public class DraggableListManager extends Sprite
     {
         private var listA:DraggableList;
         private var listB:DraggableList;
         private var debug:Label;
-        public function DraggableListTest()
+        public function DraggableListManager()
         {
             addEventListener(Event.ADDED_TO_STAGE,init)
         }

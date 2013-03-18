@@ -113,9 +113,11 @@ package nape {
             textField = new TextField();
             textField.defaultTextFormat = new TextFormat("Arial", null, 0xffffff);
             textField.selectable = false;
+            textField.mouseEnabled = false;
             textField.width = 128;
-            textField.height = 80;
+            textField.height = 250;
             addChild(textField);
+            params.desc !=null ? "":params.desc = "";
             if(params.showInfo !=null && !params.showInfo)
                 textField.visible = false;
         }
@@ -239,6 +241,8 @@ package nape {
                         "velocity-iterations: " + velIterations + "\n" +
                         "position-iterations: " + posIterations + "\n";
             }
+            text += "\n" +
+                    "desc:"+params.desc+"\n";
             textField.text = text;
 
             if (hand != null && hand.active) {

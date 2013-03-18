@@ -17,12 +17,10 @@ package nape
     import nape.shape.Circle;
     import nape.shape.Shape;
 
-    [SWF(backgroundColor="0x333333")]
     public class InteractionTest extends Template
     {
         public function InteractionTest()
         {
-            stage.color = 0x333333;
             super({
                 gravity : Vec2.weak(0, 600),
                 showInfo: false

@@ -7,6 +7,10 @@
  */
 package nape
 {
+    import com.bit101.components.PushButton;
+
+    import flash.events.MouseEvent;
+
     import nape.callbacks.BodyCallback;
     import nape.callbacks.BodyListener;
     import nape.callbacks.CbEvent;
@@ -27,7 +31,7 @@ package nape
     {
         public function CallbackTest()
         {
-            super({gravity:Vec2.weak(0,600)});
+            super({gravity:Vec2.weak(0,10)});
         }
 
         override protected function init():void
@@ -42,8 +46,8 @@ package nape
         {
             var type:CbType = new CbType();
 
-            var circle1:Body = createBall(50,50,100);
-            var circle2:Body = createBall(60,200,50);
+            var circle1:Body = createBall(50,50,0);
+            var circle2:Body = createBall(60,50,300);
 
 //            circle1.shapes.at(0).sensorEnabled = true;
 //            circle2.shapes.at(0).sensorEnabled = true;
@@ -51,25 +55,37 @@ package nape
             circle1.cbTypes.add(type);
             circle2.cbTypes.add(type);
 
+            trace(circle1.arbiters)
             space.listeners.add(new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,type,type,handler));
             space.listeners.add(new InteractionListener(CbEvent.ONGOING,InteractionType.COLLISION,type,type,handler));
             space.listeners.add(new InteractionListener(CbEvent.END,InteractionType.COLLISION,type,type,handler));
 
-            space.listeners.add(new PreListener(InteractionType.COLLISION,type,type,preHandler,0,true))
+            space.listeners.add(new PreListener(InteractionType.COLLISION,type,type,preHandler,0,false))
 
             function handler(cb:InteractionCallback):void
             {
-                trace(cb.toString());
+                trace(isAccept,cb.toString());
             }
 
             function preHandler(cb:PreCallback):PreFlag {
-                trace(cb.toString())
-                return PreFlag.IGNORE_ONCE;
+                trace(cb.toString());
+                if(isAccept)
+                {
+                    return PreFlag.ACCEPT_ONCE;
+                }
+                else
+                {
+                    return PreFlag.IGNORE_ONCE;
+                }
+
             }
-//            function preHandler(cb:PreCallback):void
-//            {
-//                trace(cb.toString());
-//            }
+            new PushButton(this, 0,0,"",callback);
+
+            var isAccept:Boolean = false;
+            function callback(e:MouseEvent):void
+            {
+                isAccept = !isAccept;
+            }
         }
 
         /**简单的刚体状态回调*/

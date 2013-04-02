@@ -171,16 +171,21 @@ package nape {
             // 'r'
             if (ev.keyCode == 82 && !resetted) {
                 resetted = true;
-                if (space != null) {
-                    space.clear();
-                    if (hand != null) {
-                        hand.active = false;
-                        hand.space = space;
-                    }
-                }
-                System.pauseForGCIfCollectionImminent(0);
-                init();
+                reset();
             }
+        }
+
+        protected function reset():void
+        {
+            if (space != null) {
+                space.clear();
+                if (hand != null) {
+                    hand.active = false;
+                    hand.space = space;
+                }
+            }
+            System.pauseForGCIfCollectionImminent(0);
+            init();
         }
 
         private var bodyList:BodyList = null;

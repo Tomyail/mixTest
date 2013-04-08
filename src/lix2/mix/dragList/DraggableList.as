@@ -1,4 +1,4 @@
-package mix.dragList
+package lix2.mix.dragList
 {
     import com.greensock.TweenLite;
     import com.greensock.easing.Sine;

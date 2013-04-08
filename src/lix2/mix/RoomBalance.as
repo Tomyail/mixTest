@@ -5,7 +5,7 @@
  * Time: 下午2:33
  * To change this template use File | Settings | File Templates.
  */
-package mix
+package lix2.mix
 {
     import flash.display.Sprite;
 

@@ -11,7 +11,9 @@ package lix2.mix
     import flash.events.MouseEvent;
     import flash.utils.getTimer;
 
-    public class EndlessLadder extends Sprite
+    import nape.Template;
+
+    public class EndlessLadder extends Template
     {
         private var ladderContainer:Sprite;
         private var ladderVec:Vector.<Border>;
@@ -24,6 +26,13 @@ package lix2.mix
 
         public function EndlessLadder()
         {
+            super({});
+        }
+
+        override protected function init():void
+        {
+
+
             drawDebugView();
 
             ladderContainer = new Sprite();
@@ -33,18 +42,25 @@ package lix2.mix
             ladderVec = new <Border>[];
             createNew();
 
+            speed = 2;
+            for (var i:int = 0; i < 200; i++)
+            {
+                update();
+            }
+            speed = 0
 
-            addEventListener(Event.ENTER_FRAME, update);
-            stage.addEventListener(MouseEvent.MOUSE_MOVE,onMove)
+
+//            addEventListener(Event.ENTER_FRAME, update);
+            stage.addEventListener(MouseEvent.MOUSE_MOVE, onMove)
         }
 
         private function onMove(event:MouseEvent):void
         {
             trace(mouseX, mouseY);
-            var middle:Number = stage.stageHeight>>1
-            if(mouseY < middle)
+            var middle:Number = stage.stageHeight >> 1
+            if (mouseY < middle)
             {
-                speed = (middle - mouseY)/50;
+                speed = (middle - mouseY) / 50;
             }
         }
 
@@ -56,6 +72,8 @@ package lix2.mix
 
             ladderVec.push(border);
             ladderContainer.addChild(border);
+
+            space.bodies.add(border.body);
         }
 
 
@@ -74,7 +92,7 @@ package lix2.mix
             addChildAt(gcBorder, 0);
 
             gcBorder.graphics.beginFill(0xff, 0.2);
-            gcBorder.graphics.drawRect(0, 0, viewBorder.width+40, viewBorder.height+40);
+            gcBorder.graphics.drawRect(0, 0, viewBorder.width + 40, viewBorder.height + 40);
 
             gcBorder.x = viewBorder.x - ((gcBorder.width - viewBorder.width) >> 1);
             gcBorder.y = viewBorder.y - ((gcBorder.height - viewBorder.height) >> 1);
@@ -86,22 +104,29 @@ package lix2.mix
 
         private function getGap():int
         {
-            return baseGap+Math.random()*randomGap+level;
+            return baseGap + Math.random() * randomGap + level;
         }
+
         private var lastUpdateTime:Number = 0;
         private var speed:int = 1;
-        private function update(event:Event):void
+
+        override protected function preStep(deltaTime:Number):void
+        {
+            update()
+        }
+
+        private function update(event:Event = null):void
         {
             var time:Number = getTimer();
-            if(time - lastUpdateTime > 5000)
+            if (time - lastUpdateTime > 5000)
             {
                 lastUpdateTime = time;
                 level++;
-                speed +=1
+                speed += 1
             }
             var gap:Number = getGap();
             //create
-            if(ladderVec[ladderVec.length-1].y -gap > gcBorder.y)
+            if (ladderVec[ladderVec.length - 1].y - gap > gcBorder.y)
                 createNew();
 
             //gc
@@ -123,7 +148,7 @@ package lix2.mix
             l = ladderVec.length;
             for (var i:int = 0; i < l; i++)
             {
-                if(ladderVec[i].shouldDelete) continue;
+                if (ladderVec[i].shouldDelete) continue;
                 if (ladderVec[i].y > gcBorder.y + gcBorder.height)
                 {
                     ladderVec[i].shouldDelete = true;
@@ -131,7 +156,7 @@ package lix2.mix
                 else
                 {
                     ladderVec[i].update();
-                    ladderVec[i].y+=speed;
+                    ladderVec[i].y += speed;
                 }
             }
         }
@@ -140,18 +165,29 @@ package lix2.mix
 
 import flash.display.Sprite;
 
+import nape.phys.Body;
+import nape.phys.BodyType;
+import nape.shape.Polygon;
+
 class Border extends Sprite
 {
     public var shouldDelete:Boolean = false;
 
+    public var body:Body;
+
     public function Border()
     {
+        var w:Number = 80 + Math.random() * 50;
+        var h:Number = 20;
         this.graphics.beginFill(Math.random() * 0xffffff);
-        this.graphics.drawRect(0, 0, 80 + Math.random() * 50, 20);
+        this.graphics.drawRect(-w >> 1, -h >> 1, w, h);
+        body = new Body(BodyType.KINEMATIC);
+        body.shapes.add(new Polygon(Polygon.box(w, h, true)));
     }
 
     public function update():void
     {
-
+        body.position.x = x;
+        body.position.y = y;
     }
 }

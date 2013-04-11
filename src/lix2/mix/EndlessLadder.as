@@ -8,6 +8,7 @@ package lix2.mix
     import flash.display.Shape;
     import flash.display.Sprite;
     import flash.events.Event;
+    import flash.utils.getTimer;
 
     public class EndlessLadder extends Sprite
     {
@@ -15,7 +16,7 @@ package lix2.mix
         private var ladderVec:Vector.<Border>;
 
         private var baseGap:int = 50;
-        private var randomGap:Number;
+        private var randomGap:Number = 10
 
         private var viewBorder:Shape;
         private var gcBorder:Shape;
@@ -51,17 +52,17 @@ package lix2.mix
             viewBorder = new Shape();
             addChild(viewBorder);
             viewBorder.graphics.beginFill(0, 0.2);
-            viewBorder.graphics.drawRect(0, 0, 100, 100);
+            viewBorder.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 
-            viewBorder.x = 100;
-            viewBorder.y = 100;
+            viewBorder.x = 0;
+            viewBorder.y = 0;
 
             gcBorder = new Shape();
 
             addChildAt(gcBorder, 0);
 
             gcBorder.graphics.beginFill(0xff, 0.2);
-            gcBorder.graphics.drawRect(0, 0, 140, 140);
+            gcBorder.graphics.drawRect(0, 0, viewBorder.width+40, viewBorder.height+40);
 
             gcBorder.x = viewBorder.x - ((gcBorder.width - viewBorder.width) >> 1);
             gcBorder.y = viewBorder.y - ((gcBorder.height - viewBorder.height) >> 1);
@@ -69,11 +70,26 @@ package lix2.mix
 
         private var gcCount:int = 0;
         private var gcInterval:int = 20;
+        private var level:int;
 
+        private function getGap():int
+        {
+            return baseGap+Math.random()*randomGap+level;
+        }
+        private var lastUpdateTime:Number = 0;
+        private var speed:int = 1;
         private function update(event:Event):void
         {
+            var time:Number = getTimer();
+            if(time - lastUpdateTime > 5000)
+            {
+                lastUpdateTime = time;
+                level++;
+                speed +=1
+            }
+            var gap:Number = getGap();
             //create
-            if(ladderVec[ladderVec.length-1].y -20 > gcBorder.y)
+            if(ladderVec[ladderVec.length-1].y -gap > gcBorder.y)
                 createNew();
 
             //gc
@@ -103,7 +119,7 @@ package lix2.mix
                 else
                 {
                     ladderVec[i].update();
-                    ladderVec[i].y+=10;
+                    ladderVec[i].y+=speed;
                 }
             }
         }

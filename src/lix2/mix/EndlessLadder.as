@@ -8,6 +8,7 @@ package lix2.mix
     import flash.display.Shape;
     import flash.display.Sprite;
     import flash.events.Event;
+    import flash.events.MouseEvent;
     import flash.utils.getTimer;
 
     public class EndlessLadder extends Sprite
@@ -34,6 +35,17 @@ package lix2.mix
 
 
             addEventListener(Event.ENTER_FRAME, update);
+            stage.addEventListener(MouseEvent.MOUSE_MOVE,onMove)
+        }
+
+        private function onMove(event:MouseEvent):void
+        {
+            trace(mouseX, mouseY);
+            var middle:Number = stage.stageHeight>>1
+            if(mouseY < middle)
+            {
+                speed = (middle - mouseY)/50;
+            }
         }
 
         private function createNew():void

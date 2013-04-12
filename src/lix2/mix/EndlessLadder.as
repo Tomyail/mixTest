@@ -12,6 +12,14 @@ package lix2.mix
     import flash.utils.getTimer;
 
     import nape.Template;
+    import nape.callbacks.CbEvent;
+    import nape.callbacks.CbType;
+    import nape.callbacks.InteractionCallback;
+    import nape.callbacks.InteractionListener;
+    import nape.callbacks.InteractionType;
+    import nape.geom.Vec2;
+    import nape.phys.Body;
+    import nape.phys.Material;
 
     public class EndlessLadder extends Template
     {
@@ -24,14 +32,18 @@ package lix2.mix
         private var viewBorder:Shape;
         private var gcBorder:Shape;
 
+        private var player:Body;
         public function EndlessLadder()
         {
-            super({});
+            super({gravity:Vec2.weak(0,600)});
         }
 
         override protected function init():void
         {
 
+
+            space.worldAngularDrag = 0;
+            space.worldLinearDrag = 0;
 
             drawDebugView();
 
@@ -49,19 +61,24 @@ package lix2.mix
             }
             speed = 0
 
-
+            player = createBox(10,10,null, 0,0,new Material(Number.POSITIVE_INFINITY));
+            player.allowRotation = false;
+            
+            createListener()
 //            addEventListener(Event.ENTER_FRAME, update);
-            stage.addEventListener(MouseEvent.MOUSE_MOVE, onMove)
+//            stage.addEventListener(MouseEvent.MOUSE_MOVE, onMove)
         }
 
-        private function onMove(event:MouseEvent):void
+        private function createListener():void
         {
-            trace(mouseX, mouseY);
-            var middle:Number = stage.stageHeight >> 1
-            if (mouseY < middle)
-            {
-                speed = (middle - mouseY) / 50;
-            }
+            var cb:CbType = new CbType();
+            var listener:InteractionListener = new InteractionListener(CbEvent.BEGIN,InteractionType.COLLISION,player.cbTypes,CbType.ANY_BODY,collisionCb )
+            space.listeners.add(listener);
+        }
+
+        private function collisionCb(cb:InteractionCallback):void
+        {
+            player.velocity.y = -400
         }
 
         private function createNew():void
@@ -112,7 +129,16 @@ package lix2.mix
 
         override protected function preStep(deltaTime:Number):void
         {
-            update()
+            if(player.velocity.y >0)
+                player.shapes.at(0).filter.collisionGroup = 1;
+            else
+                player.shapes.at(0).filter.collisionGroup = 0;
+            if(player.position.y <100)
+                speed = 8;
+            else
+                speed = 0;
+            player.force.x = (mouseX - player.position.x);
+            update();
         }
 
         private function update(event:Event = null):void
@@ -122,7 +148,7 @@ package lix2.mix
             {
                 lastUpdateTime = time;
                 level++;
-                speed += 1
+//                speed += 1
             }
             var gap:Number = getGap();
             //create

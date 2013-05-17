@@ -14,8 +14,6 @@ package nape {
      *
      */
 
-    import flash.display.Bitmap;
-
     import nape.geom.AABB;
     import nape.geom.Vec2;
     import nape.phys.Body;
@@ -26,7 +24,7 @@ package nape {
     // Template class is used so that this sample may
     // be as concise as possible in showing Nape features without
     // any of the boilerplate that makes up the sample interfaces.
-//    import Template;
+    import Template;
 
     import flash.display.BitmapData;
     import flash.display.BitmapDataChannel;
@@ -55,7 +53,6 @@ package nape {
             // Initialise terrain bitmap.
             var bit:BitmapData = new BitmapData(w, h, true, 0);
             bit.perlinNoise(200, 200, 2, 0x3ed, false, true, BitmapDataChannel.ALPHA, false);
-            addChild(new Bitmap(bit));
 
             // Create initial terrain state, invalidating the whole screen.
             terrain = new Terrain(bit, 30, 5);
@@ -209,7 +206,6 @@ class Terrain implements IsoFunction {
         var a10:int = bitmap.getPixel32(ix+1,iy)>>>24;
         var a11:int = bitmap.getPixel32(ix+1,iy+1)>>>24;
 
-        trace(ix, iy, x, y)
         var ret:Number = gx*gy*a00 + fx*gy*a10 + gx*fy*a01 + fx*fy*a11;
         return 0x80-ret;
     }

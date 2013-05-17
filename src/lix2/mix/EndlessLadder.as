@@ -78,7 +78,7 @@ package lix2.mix
 
         private function collisionCb(cb:InteractionCallback):void
         {
-            player.velocity.y = -400
+            player.velocity.y = -300
         }
 
         private function createNew():void
@@ -129,14 +129,15 @@ package lix2.mix
 
         override protected function preStep(deltaTime:Number):void
         {
+            if(player.position.y <100)
+                speed = 2;
+            else
+                speed = 0;
             if(player.velocity.y >0)
                 player.shapes.at(0).filter.collisionGroup = 1;
             else
                 player.shapes.at(0).filter.collisionGroup = 0;
-            if(player.position.y <100)
-                speed = 8;
-            else
-                speed = 0;
+
             player.force.x = (mouseX - player.position.x);
             update();
         }
@@ -163,7 +164,9 @@ package lix2.mix
                 {
                     if (ladderVec[i].shouldDelete)
                     {
-                        ladderContainer.removeChild(ladderVec.splice(i, 1)[0]);
+                        var border:Border = ladderVec.splice(i, 1)[0];
+                        ladderContainer.removeChild(border);
+                        border.body.space = null;
                         i--;
                     }
                 }

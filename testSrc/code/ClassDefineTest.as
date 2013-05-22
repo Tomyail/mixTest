@@ -19,7 +19,7 @@ package code
         public function testConverObj():void
         {
             var clz:ClassDefine = ClassDefine.converObj(new Sprite());
-            clz.debug();
+//            clz.debug();
         }
     }
 }

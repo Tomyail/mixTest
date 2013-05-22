@@ -1,19 +1,27 @@
 /**
- * User: Tomyail
- * Date: 13-5-13
- * Time: 下午11:23
+ * User: lixuexin
+ * Date: 13-5-22
+ * Time: 下午4:38
  */
 package utils
 {
     import flash.display.Sprite;
 
+    import org.as3commons.lang.ObjectUtils;
     import org.flexunit.asserts.assertFalse;
     import org.flexunit.asserts.assertTrue;
 
-    public class ClassUtilsTest
+    public class ClassExtUtilsTest
     {
-        public function ClassUtilsTest()
+        public function ClassExtUtilsTest()
         {
+        }
+
+        [Test]
+        public function testGetFullyQualifiedClassName():void
+        {
+            assertTrue("flash.display.Sprite",ObjectUtils.getFullyQualifiedClassName(Sprite,true));
+            assertTrue("flash.display.Sprite",ObjectUtils.getFullyQualifiedClassName(new Sprite,true));
         }
 
         [Test]
@@ -41,9 +49,9 @@ package utils
             assertTrue(ClassExtUtils.isPrimitiveClass("1"));
             assertTrue(ClassExtUtils.isPrimitiveClass(true));
 
+            assertTrue(ClassExtUtils.isPrimitiveClass(Number));
             assertFalse(ClassExtUtils.isPrimitiveClass(Object));
 
         }
     }
-
 }

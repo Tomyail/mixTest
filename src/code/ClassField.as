@@ -8,6 +8,8 @@ package code
     import flash.utils.Dictionary;
 
     import org.as3commons.lang.ClassUtils;
+    import org.as3commons.lang.ObjectUtils;
+    import org.osmf.elements.compositeClasses.SerialElementSegment;
 
     import utils.ClassExtUtils;
     import utils.ObjectExtUtils;
@@ -34,11 +36,13 @@ package code
         /**
          * 已知缺陷(无法识别10进制以外的数字,比如rgb会被转成巨大的数字)
          * @param name
-         * @param type
+         * @param type full class Name(String) or Class
          * @param value complex type's value can't copy
          */
-        public function addProperty(name:String, type:Class, value:Object = null):void
+        public function addProperty(name:String, type:Object, value:Object = null):void
         {
+            if(!(type is Class || type is String))
+                return;
             if (plcType[name])
                 return;
             plcType[name] = type;
@@ -53,7 +57,16 @@ package code
 
             for (var k:String in plcType)
             {
-                var fullName:String = org.as3commons.lang.ClassUtils.getFullyQualifiedName(plcType[k],true);
+                var fullName:String
+                if(plcType[k] is Class)
+                {
+                    fullName = org.as3commons.lang.ClassUtils.getFullyQualifiedName(plcType[k],true);
+                }
+                else
+                {
+                    fullName = plcType[k];
+                }
+
                 if (importNames.indexOf(fullName) < 0 && !utils.ClassExtUtils.isTopClass(plcType[k]))
                 {
                     importNames.push(fullName);
@@ -72,7 +85,7 @@ package code
                 if(value!=null)
                     value = "'"+value+"'";
             }
-            if (value == null || !ObjectExtUtils.isPrimitiveType(value))
+            if (value == null || !ObjectUtils.isSimple(value))
                 return ":" + type + ";"
             return ":" + type + " = " + value + ";"
         }

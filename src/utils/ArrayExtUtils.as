@@ -7,8 +7,6 @@ package utils
 {
     import flash.utils.Dictionary;
 
-    import org.as3commons.lang.ObjectUtils;
-
     public class ArrayExtUtils
     {
         public function ArrayExtUtils()

@@ -5,10 +5,7 @@
  */
 package utils
 {
-    import flash.utils.getQualifiedClassName;
-
     import org.as3commons.lang.ClassUtils;
-
     import org.as3commons.lang.ObjectUtils;
     import org.as3commons.reflect.Type;
     import org.as3commons.reflect.Variable;

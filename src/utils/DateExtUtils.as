@@ -42,6 +42,20 @@ package utils
             }
         }
 
+        private static var defaultRuler:Array = [
+
+        ]
+        /**
+         * 将时差毫秒数转成可读性文字
+         * @param mills
+         * @param ruler[{10:},{}]
+         * @return
+         */
+        public static function getReadableDataString(mills:Number,nameRuler:Array=null,timeRuler:Array=null):String
+        {
+
+        }
+
         private static function getVariableDiff (startDate:Date, endDate:Date) : Number {
             var startMillis:Number = startDate.getTime();
             var endMillis:Number = endDate.getTime();

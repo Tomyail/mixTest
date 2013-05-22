@@ -7,6 +7,8 @@ package utils
 {
     import flash.utils.getQualifiedClassName;
 
+    import org.as3commons.lang.ClassUtils;
+
     public class VectorExtUtils
     {
         public function VectorExtUtils()
@@ -18,6 +20,8 @@ package utils
             if(isVector(value))
             {
                 var str:String = getQualifiedClassName(value);
+                var fullName:String = str.slice(str.indexOf(".<")+2,str.length-1);
+                return ClassUtils.forName(fullName);
             }
             return null;
         }

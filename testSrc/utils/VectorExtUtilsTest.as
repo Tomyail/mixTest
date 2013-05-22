@@ -7,6 +7,8 @@ package utils
 {
     import flash.display.Sprite;
 
+    import org.flexunit.asserts.assertEquals;
+
     import org.flexunit.asserts.assertFalse;
 
     import org.flexunit.asserts.assertTrue;
@@ -30,7 +32,8 @@ package utils
         [Test]
         public function testGetVectorContentType():void
         {
-
+            assertEquals(VectorExtUtils.getVectorContentType(Vector.<Sprite>),Sprite);
+            assertEquals(VectorExtUtils.getVectorContentType(Vector.<Vector.<Sprite>>),Vector.<Sprite>);
         }
     }
 }

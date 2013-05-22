@@ -53,7 +53,7 @@ package utils
          */
         public static function getReadableDataString(mills:Number,nameRuler:Array=null,timeRuler:Array=null):String
         {
-
+            return ""
         }
 
         private static function getVariableDiff (startDate:Date, endDate:Date) : Number {

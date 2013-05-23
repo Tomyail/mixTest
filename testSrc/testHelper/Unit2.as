@@ -1,17 +1,16 @@
 /**
  * User: lixuexin
  * Date: 13-5-21
- * Time: 下午4:02
+ * Time: 下午5:22
  */
-package utils
+package testHelper
 {
-    public class Unit
+    public class Unit2
     {
-        public function Unit()
+        public function Unit2()
         {
         }
         public var a:int;
         public var b:String;
-        public var c:Boolean;
     }
 }

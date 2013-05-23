@@ -12,6 +12,8 @@ package utils
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertNotNull;
 
+    import testHelper.TargetType2;
+
     public class ObjectExtUtilsTest
     {
         public function ObjectExtUtilsTest()

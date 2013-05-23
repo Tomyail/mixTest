@@ -3,11 +3,11 @@
  * Date: 13-5-17
  * Time: 下午4:14
  */
-package utils
+package testHelper
 {
-    public class TargetType2
+    public class TargetType1
     {
-        public function TargetType2()
+        public function TargetType1()
         {
         }
 
@@ -15,9 +15,9 @@ package utils
         public var b:String;
         public var c:Boolean;
         public var d:Number;
-        public var e:Unit;
+        public var e:Object;
         public var f:Array;
-        public var g:Vector.<Unit2>;
+        public var g:Array;
 
     }
 }

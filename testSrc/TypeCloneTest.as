@@ -37,6 +37,7 @@ package
             var tft:TextFormat = ObjectUtils.toInstance(format,TextFormat);
 
             assertEquals(0xff0000,tft.color,tf.defaultTextFormat.color);
+            //error
 //            assertEquals(0xff0000,ObjectUtils.toInstance(format,TextFormat).color,tf.defaultTextFormat.color);
         }
     }

@@ -8,9 +8,9 @@ package utils
     import org.hamcrest.assertThat;
     import org.hamcrest.collection.array;
 
-    public class ArrayUtilsTest
+    public class ArrayExtUtilsTest
     {
-        public function ArrayUtilsTest()
+        public function ArrayExtUtilsTest()
         {
         }
 
